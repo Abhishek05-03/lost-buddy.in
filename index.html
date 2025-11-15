@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lost Buddy.in</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login.html" />
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg"></div>
+  <div class="bg blur"></div>
+
+  <!-- Header -->
+  <header class="banner container reveal">
+    <h1 class="title">LOST YOUR MOBILE ?</h1>
+    <p class="subtitle">Block & trace your lost or stolen handset instantly</p>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="topbar container reveal" aria-label="Primary">
+    <a class="pill" href="./index.html">
+      <i class="fa-solid fa-house-user"></i><span>Home</span>
+    </a>
+
+    <details class="pill dropdown">
+      <summary><i class="fa-solid fa-grid-2"></i><span>Services</span></summary>
+      <ul class="menu" role="menu" aria-label="Services">
+        <li><a href="#"><i class="fa-solid fa-phone-flip"></i> Un-Block Found</a></li>
+        <li><a href="#"><i class="fa-solid fa-rectangle-list"></i> Check Status</a></li>
+        <li><a href="#"><i class="fa-solid fa-id-card-clip"></i> Forgot Request ID</a></li>
+      </ul>
+    </details>
+
+    <a class="pill" href="#">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Know Status</span></a>
+    <a class="pill" href="#"><i class="fa-solid fa-headset"></i><span>Contact</span></a>
+    <a class="pill" href="#"><i class="fa-solid fa-life-ring"></i><span>Help</span></a>
+    <a class="pill" href="login.html"><i class="fa-solid fa-circle-user"></i><span>Login</span></a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero container reveal hero-simple">
+    <div class="hero-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+    <div class="hero-text">
+      <h2>Block your lost / stolen mobile handset</h2>
+      <p>Register a complaint, verify via OTP, and get the IMEI blocked to prevent misuse. Track your status anytime.</p>
+      <a class="btn btn-primary" href="complaint.html">
+        <i class="fa-solid fa-shield-halved"></i> 
+        Raise Complaint
+    </a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features container reveal features-simple">
+    <h3 class="section-heading">Why use Lost Buddy.in</h3>
+    <ul class="f-list">
+      <li><i class="fa-solid fa-lock"></i><span>Secure IMEI blocking to stop misuse</span></li>
+      <li><i class="fa-solid fa-bolt"></i><span>Fast process with OTP verification</span></li>
+      <li><i class="fa-solid fa-timeline"></i><span>Live request tracking dashboard</span></li>
+    </ul>
+  </section>
+
+  <!-- Cards -->
+  <section class="cards container">
+    <a class="card reveal" href="#">
+      <i class="fa-solid fa-phone-flip card-icon"></i>
+      <div><h3>Unblock Found Mobile</h3><p>Recovered your device? Reactivate safely.</p></div>
+    </a>
+    <a class="card reveal" href="#">
+      <i class="fa-solid fa-rectangle-list card-icon"></i>
+      <div><h3>Check Request Status</h3><p>Track progress with your Request ID.</p></div>
+    </a>
+    <a class="card reveal" href="#">
+      <i class="fa-solid fa-id-card-clip card-icon"></i>
+      <div><h3>Forgot Complaint ID</h3><p>Retrieve your ID using registered details.</p></div>
+    </a>
+    <a class="card reveal" href="#">
+      <i class="fa-solid fa-headset card-icon"></i>
+      <div><h3>Contact Support</h3><p>Need help? Reach our support team.</p></div>
+    </a>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Lost Buddy.in. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Year update
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    (function () {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!('IntersectionObserver' in window) || reduce) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      },{ threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+    })();
+
+    // Dropdown full-box clickable + outside/Esc close
+    (function () {
+      const dd = document.querySelector('.dropdown');
+      if (!dd) return;
+
+      // Make entire pill clickable
+      dd.addEventListener('click', e => {
+        if (e.target.closest('.menu')) return;
+        e.preventDefault();
+        dd.open = !dd.open;
+        document.body.classList.toggle('menu-open', dd.open);
+      });
+
+      // Outside click closes
+      document.addEventListener('click', e => {
+        if (dd.open && !dd.contains(e.target)) {
+          dd.open = false;
+          document.body.classList.remove('menu-open');
+        }
+      });
+
+      // Esc key closes
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && dd.open) {
+          dd.open = false;
+          document.body.classList.remove('menu-open');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

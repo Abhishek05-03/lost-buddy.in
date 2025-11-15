@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login – Lost Buddy.in</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">Welcome Back</h1>
+    <p class="site-subtitle">Login using your Email or Mobile</p>
+  </header>
+
+  <main class="container">
+    <section class="card" id="authArea">
+      <h2 class="card-title"><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
+
+      <!-- Login form -->
+      <form id="loginForm" novalidate>
+        <div class="grid">
+          <label class="field">
+            <span>Email OR Mobile <b>*</b></span>
+            <input name="user" type="text" placeholder="you@example.com OR 10-digit mobile" required />
+          </label>
+
+          <label class="field">
+            <span>Password <b>*</b></span>
+            <input name="password" type="password" placeholder="Your password" required />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">
+            <i class="fa-solid fa-unlock-keyhole"></i> Login
+          </button>
+          <a class="btn btn-ghost" href="signup.html">
+            <i class="fa-solid fa-user-plus"></i> Create account
+          </a>
+            <button class="btn btn-secondry" type="submit">
+              <a class="home" href="index.html">Home</a>
+             
+          </button>
+        </div>
+
+        <p id="loginMsg" class="form-msg"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+</body>
+</html>

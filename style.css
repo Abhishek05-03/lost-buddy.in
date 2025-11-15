@@ -1,0 +1,402 @@
+
+/* ---------- 🎨 COLOR VARIABLES ---------- */
+:root {
+  /* Base colors */
+  --bg-1: #0b1729;                 /* Main background (dark navy) */
+  --bg-2: #10283e;                 /* Secondary dark tone */
+  --ink: #eaf6ff;                  /* Main text color */
+  --muted: #b0c8da;                /* Subtext / light text */
+
+  /* Accent / brand colors */
+  --brand: #1bbfa0;                /* Teal green */
+  --brand-2: #3b82f6;              /* Soft blue */
+
+  /* UI surfaces */
+  --border: rgba(255, 255, 255, 0.15);
+  --glass: rgba(255, 255, 255, 0.08);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* Dropdown popup colors */
+  --popup-bg: #070c14;             /* Darker background for popup */
+  --popup-border: rgba(255, 255, 255, 0.25);
+
+  /* Radius and layout */
+  --r-lg: 16px;
+  --r-md: 12px;
+  --pad: clamp(14px, 2vw, 22px);
+  --maxw: 1200px;
+}
+
+/* ---------- 🧱 BASE RESET ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: var(--bg-1);
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+/* Container for max width alignment */
+.container {
+  width: min(var(--maxw), 92vw);
+  margin: auto;
+  padding-inline: var(--pad);
+}
+
+/* ---------- 🌈 BACKGROUND ANIMATION ---------- */
+.bg {
+  position: fixed;
+  inset: -20% -20% auto -20%;
+  height: 72vh;
+  z-index: -2;
+  background:
+    radial-gradient(60% 60% at 20% 30%, #3b82f6 0%, transparent 60%),
+    radial-gradient(60% 60% at 80% 25%, #1bbfa0 0%, transparent 60%),
+    radial-gradient(55% 55% at 50% 85%, #162b45 0%, transparent 60%);
+  animation: floatBg 18s ease-in-out infinite alternate;
+}
+
+/* Slight blur overlay */
+.bg.blur {
+  filter: blur(70px) brightness(120%) saturate(130%);
+  opacity: 0.6;
+  z-index: -3;
+}
+
+/* Floating background movement */
+@keyframes floatBg {
+  0% { transform: translateY(-8px); }
+  100% { transform: translateY(20px); }
+}
+
+/* ---------- 🏷️ HEADER ---------- */
+.banner {
+  margin-top: clamp(18px, 4vw, 32px);
+  padding: clamp(16px, 3vw, 28px);
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .04));
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow);
+}
+
+.title {
+  font-family: Poppins, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 2.6vw, 1.2rem);
+}
+
+/* ---------- 🧭 NAVBAR ---------- */
+.topbar {
+  position: relative;
+  z-index: 30;
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  padding-block: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .03));
+  border-radius: 14px;
+}
+
+/* Pill buttons */
+.pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  transition: all .2s ease;
+  min-height: 44px;
+}
+
+/* Prevent text wrapping */
+.pill span { white-space: nowrap; }
+
+/* Hover effect */
+.pill:hover {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #0a0f18;
+  box-shadow: 0 10px 24px rgba(27, 191, 160, 0.3);
+}
+
+/* ---------- 📂 DROPDOWN ---------- */
+.dropdown {
+  position: relative;
+}
+
+/* Dropdown summary (title row) */
+.dropdown summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ink);
+}
+
+.dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Lock body scroll when open */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Hide glow when menu open */
+body.menu-open .bg,
+body.menu-open .bg.blur {
+  display: none;
+}
+
+/* Actual dropdown popup */
+.dropdown .menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 9999;
+  background: var(--popup-bg);
+  color: #eaf6ff;
+  border: 1px solid var(--popup-border);
+  border-radius: 16px;
+  min-width: 240px;
+  width: max-content;
+  max-width: 92vw;
+  padding: 10px 0;
+  list-style: none;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .65), 0 0 0 1px rgba(255, 255, 255, .04);
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+/* Dropdown link styles */
+.dropdown .menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #eaf6ff;
+}
+
+.dropdown .menu a:hover {
+  background: rgba(255, 255, 255, .10);
+}
+
+/* Dark overlay when menu open */
+.dropdown[open]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  z-index: 9998;
+}
+
+/* Show dropdown */
+.dropdown[open] .menu {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile-friendly dropdown */
+@media (max-width: 600px) {
+  .dropdown .menu {
+    position: static;
+    width: 100%;
+    max-width: none;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: none;
+    border-radius: 12px;
+  }
+}
+
+/* ---------- 📱 HERO SECTION ---------- */
+.hero-simple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  padding: clamp(20px, 4vw, 36px);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+  box-shadow: var(--shadow);
+}
+
+.hero-icon i {
+  font-size: 4rem;
+  color: var(--brand);
+}
+
+.hero-text h2 {
+  font-family: Poppins, sans-serif;
+  font-weight: 800;
+  margin: 0 0 8px;
+  font-size: clamp(1.2rem, 3.6vw, 1.9rem);
+}
+
+.hero-text p {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+/* Primary CTA button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #0b1020;
+  box-shadow: 0 8px 22px rgba(59, 130, 246, .3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(27, 191, 160, .4);
+}
+
+/* ---------- 🧩 FEATURES ---------- */
+.features-simple {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.section-heading {
+  font-family: Poppins, sans-serif;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--brand-2);
+}
+
+.f-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  text-align: left;
+  max-width: 500px;
+}
+
+.f-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 10px 0;
+  color: var(--ink);
+}
+
+.f-list i {
+  color: var(--brand);
+}
+
+/* ---------- 🧱 CARDS ---------- */
+.cards {
+  margin: 20px auto 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: transform .18s, border-color .18s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(59, 130, 246, .4);
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(59, 130, 246, .12);
+  color: var(--brand);
+  font-size: 24px;
+}
+
+.card h3 {
+  margin: 0 0 4px;
+  font-size: 1.08rem;
+  font-weight: 800;
+  font-family: Poppins, sans-serif;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+
+/* ---------- ⚓ FOOTER ---------- */
+.footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 22px 0 40px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* ---------- ✨ ANIMATION: SCROLL REVEAL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s, transform .5s;
+}
+
+.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}

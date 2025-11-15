@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign up – Lost Buddy.in</title>
+
+  <!-- Nice fonts + icons (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Separate CSS -->
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <!-- Page Header -->
+  <header class="site-header">
+    <h1 class="site-title">Create Account</h1>
+    <p class="site-subtitle">Sign up to raise complaints and track requests</p>
+  </header>
+
+  <!-- Form Card -->
+  <main class="container">
+    <section class="card">
+      <h2 class="card-title"><i class="fa-solid fa-user-plus"></i> Sign up</h2>
+
+      <!-- Sign-up form -->
+      <form id="signupForm" novalidate>
+        <!-- Row 1 -->
+        <div class="grid">
+          <label class="field">
+            <span>Full Name <b>*</b></span>
+            <input name="name" type="text" placeholder="e.g., Abhishek Kumar" required />
+          </label>
+
+          <label class="field">
+            <span>Mobile Number <b>*</b></span>
+            <input name="mobile" type="tel" inputmode="tel" maxlength="10" placeholder="10-digit number" required />
+          </label>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="grid">
+          <label class="field">
+            <span>Email ID <b>*</b></span>
+            <input name="email" type="email" placeholder="you@example.com" required />
+          </label>
+
+          <label class="field">
+            <span>City <small>(optional)</small></span>
+            <input name="city" type="text" placeholder="e.g., Mumbai" />
+          </label>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Row 3 -->
+        <div class="grid">
+          <label class="field">
+            <span>Set Password <b>*</b></span>
+            <input name="password" type="password" minlength="6" placeholder="Min 6 characters" required />
+          </label>
+
+          <label class="field">
+            <span>Confirm Password <b>*</b></span>
+            <input name="confirm" type="password" minlength="6" placeholder="Re-type password" required />
+          </label>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">
+            <i class="fa-solid fa-user-check"></i> Create Account
+          </button>
+          <a class="btn btn-ghost" href="login.html">
+            <i class="fa-solid fa-right-to-bracket"></i> Already have an account? Login
+          </a>
+        </div>
+
+        <!-- Message area (errors/success) -->
+        <p id="signupMsg" class="form-msg"></p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Separate JS (frontend only) -->
+  <script src="auth.js"></script>
+</body>
+</html>

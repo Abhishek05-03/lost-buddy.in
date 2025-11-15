@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raise Complaint – Lost Buddy.in</title>
+
+  <!-- fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous"/>
+
+  <!-- page CSS -->
+  <link rel="stylesheet" href="complaint.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <h1 class="site-title">Raise Complaint</h1>
+    <p class="site-subtitle">Block IMEI & help prevent misuse of your device</p>
+  </header>
+
+  <main class="container">
+    <!-- Stepper -->
+    <ol class="stepper" id="stepper">
+      <li class="active"><span>1</span> Device & Incident</li>
+      <li><span>2</span> Contact & OTP</li>
+      <li><span>3</span> Review & Submit</li>
+    </ol>
+
+    <!-- Form Card -->
+    <section class="card">
+      <form id="complaintForm" novalidate>
+        <!-- ============== STEP 1 ============== -->
+        <fieldset class="step active" data-step="1">
+          <legend><i class="fa-solid fa-mobile-screen"></i> Device Details</legend>
+
+          <div class="grid">
+            <label class="field">
+              <span>IMEI Number <b>*</b></span>
+              <input name="imei" type="text" inputmode="numeric" minlength="15" maxlength="16" placeholder="e.g., 356938035643809" required />
+              <small class="muted">Dial *#06# on your phone to see IMEI.</small>
+            </label>
+
+            <label class="field">
+              <span>Brand</span>
+              <input name="brand" type="text" placeholder="e.g., Samsung" />
+            </label>
+
+            <label class="field">
+              <span>Model</span>
+              <input name="model" type="text" placeholder="e.g., Galaxy A54" />
+            </label>
+
+            <label class="field">
+              <span>Color</span>
+              <input name="color" type="text" placeholder="e.g., Black" />
+            </label>
+          </div>
+
+          <legend><i class="fa-solid fa-triangle-exclamation"></i> Incident Details</legend>
+
+          <div class="grid">
+            <label class="field">
+              <span>Date of Loss <b>*</b></span>
+              <input name="lossDate" type="date" required />
+            </label>
+
+            <label class="field">
+              <span>Time of Loss</span>
+              <input name="lossTime" type="time" />
+            </label>
+
+            <label class="field">
+              <span>Last Known Location</span>
+              <input name="location" type="text" placeholder="Area / Landmark / City" />
+            </label>
+
+            <label class="field">
+              <span>FIR Number (optional)</span>
+              <input name="fir" type="text" placeholder="Police complaint number" />
+            </label>
+
+            <label class="field file">
+              <span>Attach FIR / Proof (optional)</span>
+              <input name="proof" type="file" accept=".pdf,.jpg,.jpeg,.png" />
+            </label>
+
+            <label class="field" style="grid-column: 1 / -1;">
+              <span>Additional Details</span>
+              <textarea name="notes" rows="3" placeholder="Any helpful info…"></textarea>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" type="button" id="toStep2">
+              Continue <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- ============== STEP 2 ============== -->
+        <fieldset class="step" data-step="2">
+          <legend><i class="fa-solid fa-address-card"></i> Contact Details</legend>
+
+          <div class="grid">
+            <label class="field">
+              <span>Full Name <b>*</b></span>
+              <input name="name" type="text" required />
+            </label>
+
+            <label class="field">
+              <span>Mobile Number <b>*</b></span>
+              <input name="phone" type="tel" inputmode="tel" maxlength="10" placeholder="10-digit mobile" required />
+            </label>
+
+            <label class="field">
+              <span>Email (for updates)</span>
+              <input name="email" type="email" placeholder="you@example.com" />
+            </label>
+
+            <label class="field">
+              <span>Address</span>
+              <input name="address" type="text" placeholder="House / Street / City" />
+            </label>
+          </div>
+
+          <div class="grid">
+            <label class="field" style="grid-column:1/-1;">
+              <span>Verify via OTP <b>*</b></span>
+              <div class="otp-wrap">
+                <input name="otp" id="otp" type="text" maxlength="6" placeholder="Enter 6-digit OTP" required />
+                <button class="btn btn-ghost" type="button" id="sendOtp">
+                  <i class="fa-solid fa-paper-plane"></i> Send OTP
+                </button>
+              </div>
+              <small id="otpHint" class="muted">You’ll receive an OTP on your mobile (demo).</small>
+            </label>
+          </div>
+
+          <div class="consent">
+            <label>
+              <input name="consent" type="checkbox" required />
+              I confirm the information is true and authorize IMEI blocking.
+            </label>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-ghost" type="button" id="back1">
+              <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn-primary" type="button" id="toStep3">
+              Review <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- ============== STEP 3 ============== -->
+        <fieldset class="step" data-step="3">
+          <legend><i class="fa-solid fa-clipboard-check"></i> Review & Submit</legend>
+
+          <div id="reviewBox" class="review"></div>
+
+          <div class="actions">
+            <button class="btn btn-ghost" type="button" id="back2">
+              <i class="fa-solid fa-arrow-left"></i> Edit
+            </button>
+            <button class="btn btn-primary" type="submit">Submit Complaint</button>
+          </div>
+        </fieldset>
+
+        <!-- messages -->
+        <p id="formMsg" class="form-msg"></p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Toast (success box) -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+    <i class="fa-solid fa-circle-check"></i>
+    <div>
+      <strong>Complaint submitted!</strong>
+      <div id="rid" class="muted">Request ID: —</div>
+    </div>
+  </div>
+
+  <!-- Page JS -->
+  <script src="complaint.js"></script>
+</body>
+</html>
